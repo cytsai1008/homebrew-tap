@@ -47,9 +47,9 @@ brew uninstall <name>
 
 ## CI — auto-bump workflow
 
-`.github/workflows/bump.yml` runs daily and uses `dawidd6/action-homebrew-bump-formula` to detect new upstream releases and push version bumps automatically.
+`.github/workflows/bump.yml` runs daily and uses `Homebrew/actions/bump-packages` to detect new upstream releases via `brew livecheck` and open version bump PRs automatically.
 
-It requires a repo secret named `GH_PAT` — a fine-grained PAT with **Contents: Read and write** on this repo. `GITHUB_TOKEN` does not work because the action calls the `/user` API endpoint, which requires a user-level token.
+It requires a repo secret named `GH_PAT`. Use a PAT instead of `GITHUB_TOKEN`, because `brew bump --open-pr` needs a user token to create branches/forks and pull requests.
 
 ## Tap structure
 

@@ -13,7 +13,7 @@ brew trust cytsai1008/tap
 
 | Formula | Description |
 |---------|-------------|
-| `brew-cnf` | Fast drop-in replacement for `brew which-formula --explain` |
+| `brew-cnf` | Fast drop-in replacement for `Fast drop-in replacement for brew command-not-found` |
 
 ## Usage
 

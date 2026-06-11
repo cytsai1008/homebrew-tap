@@ -14,13 +14,9 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
 
-      - name: Trust tap
-        run: brew trust cytsai1008/tap
-
       - name: Bump brew-cnf
-        uses: dawidd6/action-homebrew-bump-formula@v7
+        uses: Homebrew/actions/bump-packages@main
         with:
           token: ${{ secrets.GH_PAT }}
-          tap: cytsai1008/tap
-          formula: brew-cnf
-          livecheck: true
+          formulae: cytsai1008/tap/brew-cnf
+          fork: false
