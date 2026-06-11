@@ -12,7 +12,7 @@ jobs:
       contents: write
     steps:
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
+        uses: Homebrew/actions/setup-homebrew@main
 
       - name: Trust tap
         run: brew trust cytsai1008/tap
@@ -23,3 +23,4 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           tap: cytsai1008/tap
           formula: brew-cnf
+          livecheck: true

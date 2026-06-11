@@ -6,6 +6,11 @@ class BrewCnf < Formula
   version "0.1.0"
   license "MIT"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   depends_on "rust" => :build
 
   def install
