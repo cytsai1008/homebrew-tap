@@ -11,9 +11,12 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Trust tap
+        run: brew trust cytsai1008/tap
+
       - name: Bump brew-cnf
         uses: dawidd6/action-homebrew-bump-formula@v7
         with:
           token: ${{ secrets.GH_PAT }}
-          tap: cytsai1008/homebrew-tap
+          tap: cytsai1008/tap
           formula: brew-cnf
