@@ -6,7 +6,7 @@ Personal Homebrew tap by [@cytsai](https://github.com/cytsai1008).
 
 ```sh
 brew tap cytsai1008/tap
-brew trust cytsai/tap
+brew trust cytsai1008/tap
 ```
 
 ## Formulae

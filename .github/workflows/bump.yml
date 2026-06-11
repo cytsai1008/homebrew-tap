@@ -15,5 +15,5 @@ jobs:
         uses: dawidd6/action-homebrew-bump-formula@v7
         with:
           token: ${{ secrets.GH_PAT }}
-          tap: cytsai1008/tap
+          tap: cytsai1008/homebrew-tap
           formula: brew-cnf
