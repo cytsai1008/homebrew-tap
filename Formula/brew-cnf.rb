@@ -1,20 +1,23 @@
 class BrewCnf < Formula
   desc "Fast drop-in replacement for brew command-not-found"
   homepage "https://github.com/cytsai1008/brew-cnf-rust"
-  url "https://github.com/cytsai1008/brew-cnf-rust/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "caff9d4641d5e92076e1a72c80aac982ddaa187a76aa99afe55fb05880f06dd9"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
 
-  livecheck do
-    url :stable
-    strategy :github_latest
+  on_macos do
+    on_arm do
+      url "https://github.com/cytsai1008/brew-cnf-rust/releases/download/v#{version}/brew-cnf-aarch64-apple-darwin.tar.gz"
+      sha256 "73925783fce78c6daea9e0ae90f8f7ed087d36235e907117806f18c54e3ab171"
+    end
+
+    on_intel do
+      url "https://github.com/cytsai1008/brew-cnf-rust/releases/download/v#{version}/brew-cnf-x86_64-apple-darwin.tar.gz"
+      sha256 "790ae280bad372f77fad8511f2b5a229f3e8db04ffed9aff6c281e9ae63cb803"
+    end
   end
 
-  depends_on "rust" => :build
-
   def install
-    system "cargo", "install", *std_cargo_args
+    bin.install "brew-cnf"
   end
 
   test do
