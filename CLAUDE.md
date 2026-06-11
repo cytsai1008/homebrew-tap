@@ -45,6 +45,12 @@ brew uninstall <name>
   curl -L <url> | shasum -a 256
   ```
 
+## CI — auto-bump workflow
+
+`.github/workflows/bump.yml` runs daily and uses `dawidd6/action-homebrew-bump-formula` to detect new upstream releases and push version bumps automatically.
+
+It requires a repo secret named `GH_PAT` — a fine-grained PAT with **Contents: Read and write** on this repo. `GITHUB_TOKEN` does not work because the action calls the `/user` API endpoint, which requires a user-level token.
+
 ## Tap structure
 
 ```
