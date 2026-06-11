@@ -11,6 +11,9 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
       - name: Trust tap
         run: brew trust cytsai1008/tap
 
