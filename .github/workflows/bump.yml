@@ -33,7 +33,7 @@ jobs:
           )
 
           current="$(grep -E '^[[:space:]]*version "' "$formula" | sed -E 's/.*"([^"]+)".*/\1/')"
-          latest="$(brew livecheck --json cytsai1008/tap/brew-cnf | jq -r '.[0].version')"
+          latest="$(brew livecheck --json cytsai1008/tap/brew-cnf | jq -r '.[0].version | if type == "object" then .latest else . end')"
 
           echo "Current version: $current"
           echo "Latest version:  $latest"
