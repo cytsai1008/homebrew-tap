@@ -1,6 +1,6 @@
 # homebrew-tap
 
-Personal Homebrew tap by [@cytsai](https://github.com/cytsai1008).
+Personal Homebrew tap by [@cytsai1008](https://github.com/cytsai1008).
 
 ## Install
 
