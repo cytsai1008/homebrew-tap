@@ -47,9 +47,9 @@ brew uninstall <name>
 
 ## CI — auto-bump workflow
 
-`.github/workflows/bump.yml` runs daily and uses `Homebrew/actions/bump-packages` to detect new upstream releases via `brew livecheck` and open version bump PRs automatically.
+`.github/workflows/bump.yml` runs daily, uses `brew livecheck` to detect new upstream releases, updates the prebuilt archive checksums, and pushes the version bump directly to `main`.
 
-It requires a repo secret named `GH_PAT`. Use a PAT instead of `GITHUB_TOKEN`, because `brew bump --open-pr` needs a user token to create branches/forks and pull requests.
+It requires a repo secret named `GH_PAT` with permission to push workflow-created commits.
 
 ## Tap structure
 

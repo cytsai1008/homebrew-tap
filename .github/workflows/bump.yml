@@ -11,12 +11,55 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Check out tap
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GH_PAT }}
+
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
 
-      - name: Bump brew-cnf
-        uses: Homebrew/actions/bump-packages@main
-        with:
-          token: ${{ secrets.GH_PAT }}
-          formulae: cytsai1008/tap/brew-cnf
-          fork: false
+      - name: Update brew-cnf formula
+        run: |
+          set -euo pipefail
+
+          formula="Formula/brew-cnf.rb"
+          repo="cytsai1008/brew-cnf-rust"
+          targets=(
+            aarch64-apple-darwin
+            x86_64-apple-darwin
+            aarch64-unknown-linux-gnu
+            x86_64-unknown-linux-gnu
+          )
+
+          brew tap cytsai1008/tap "$GITHUB_WORKSPACE"
+
+          current="$(grep -E '^[[:space:]]*version "' "$formula" | sed -E 's/.*"([^"]+)".*/\1/')"
+          latest="$(brew livecheck --json cytsai1008/tap/brew-cnf | jq -r '.[0].version')"
+
+          echo "Current version: $current"
+          echo "Latest version:  $latest"
+
+          if [[ "$latest" == "$current" ]]; then
+            echo "No bump needed."
+            exit 0
+          fi
+
+          perl -0pi -e "s/version \"[^\"]+\"/version \"$latest\"/" "$formula"
+
+          for target in "${targets[@]}"; do
+            url="https://github.com/${repo}/releases/download/v${latest}/brew-cnf-${target}.tar.gz"
+            checksum="$(curl -fsSL "$url" | sha256sum | awk '{print $1}')"
+            perl -0pi -e "s#(brew-cnf-${target}\\.tar\\.gz\"\\n\\s*sha256 \")[^\"]+\"#\${1}${checksum}\"#" "$formula"
+          done
+
+          if git diff --quiet -- "$formula"; then
+            echo "No formula changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$formula"
+          git commit -m "brew-cnf ${latest}"
+          git push origin HEAD:main
