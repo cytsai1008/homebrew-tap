@@ -8,6 +8,8 @@ on:
 jobs:
   bump:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Bump brew-cnf
         uses: dawidd6/action-homebrew-bump-formula@v7
