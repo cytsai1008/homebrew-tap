@@ -14,7 +14,6 @@ jobs:
       - name: Check out tap
         uses: actions/checkout@v6
         with:
-          token: ${{ secrets.GH_PAT }}
           persist-credentials: false
 
       - name: Set up Homebrew
@@ -22,7 +21,7 @@ jobs:
 
       - name: Update brew-cnf formula
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
 
@@ -63,5 +62,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$formula"
           git commit -m "brew-cnf ${latest}"
-          git remote set-url origin "https://x-access-token:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push origin HEAD:main
