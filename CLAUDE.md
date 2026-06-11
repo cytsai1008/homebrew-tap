@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A [Homebrew tap](https://docs.brew.sh/How-to-Create-and-Maintain-a-Tap) for personal formulae. Users install it with:
 
 ```
-brew tap cytsai/tap
+brew tap cytsai1008/tap
 ```
 
 ## Formula development

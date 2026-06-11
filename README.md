@@ -5,7 +5,7 @@ Personal Homebrew tap by [@cytsai](https://github.com/cytsai1008).
 ## Install
 
 ```sh
-brew tap cytsai/tap
+brew tap cytsai1008/tap
 brew trust cytsai/tap
 ```
 
