@@ -1,7 +1,7 @@
 class BrewCnf < Formula
   desc "Fast drop-in replacement for brew command-not-found"
   homepage "https://github.com/cytsai1008/brew-cnf-rust"
-  version "0.4.0"
+  version "0.4.1"
   license "MIT"
 
   livecheck do
@@ -12,24 +12,24 @@ class BrewCnf < Formula
   on_macos do
     on_arm do
       url "https://github.com/cytsai1008/brew-cnf-rust/releases/download/v#{version}/brew-cnf-aarch64-apple-darwin.tar.gz"
-      sha256 "ba49cd11233b736bc2f2624a027eebebe432274c3b448aab05b4cc1c31756c2b"
+      sha256 "0286201da56e13ebac23360cb962356d95f9cb43c899fb5da531d32c44bf8593"
     end
 
     on_intel do
       url "https://github.com/cytsai1008/brew-cnf-rust/releases/download/v#{version}/brew-cnf-x86_64-apple-darwin.tar.gz"
-      sha256 "80534afc2b9ee129acb2df7c94819efdd4a448c3566640121f926cb755a0d76a"
+      sha256 "ca9e8feb4334528ecb695bfa85183d6309f04df65efaa4bbad36a674c54c6b2c"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/cytsai1008/brew-cnf-rust/releases/download/v#{version}/brew-cnf-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "6becc37856a30c82b75b8a8dca182b5af9f1cc8ebf8e43749f35695fcf814f3f"
+      sha256 "66f7ac89d5c08580300acdf95d089ff4edd0283af2b522df6aa02ac036f5ec08"
     end
 
     on_intel do
       url "https://github.com/cytsai1008/brew-cnf-rust/releases/download/v#{version}/brew-cnf-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "4a209b2ccde8771bfb660082c87b722bc14a872bfbbd68189d4a590881eecc61"
+      sha256 "1e3a135c4dd262f4f124afe11037e1fa251096f2b2ad2ebb8aca6bbc11a3d08e"
     end
   end
 
