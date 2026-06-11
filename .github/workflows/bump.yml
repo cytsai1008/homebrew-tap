@@ -1,0 +1,17 @@
+name: Bump formulae
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily at 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bump brew-cnf
+        uses: dawidd6/action-homebrew-bump-formula@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tap: cytsai/tap
+          formula: brew-cnf
