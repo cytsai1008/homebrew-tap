@@ -1,4 +1,4 @@
-name: Bump formulae
+name: Bump formulae and casks
 
 on:
   schedule:
@@ -62,5 +62,47 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$formula"
           git commit -m "brew-cnf ${latest}"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push origin HEAD:main
+
+      - name: Update mibuds-for-mac cask
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          cask="Casks/mibuds-for-mac.rb"
+          repo="cytsai1008/MiBudsForMac"
+
+          current="$(grep -E '^[[:space:]]*version "' "$cask" | sed -E 's/.*"([^"]+)".*/\1/')"
+          latest="$(brew livecheck --cask --json cytsai1008/tap/mibuds-for-mac | jq -r '.[0].version | if type == "object" then .latest else . end')"
+
+          echo "Current version: $current"
+          echo "Latest version:  $latest"
+
+          # Also guards the perl substitution below against odd tag names.
+          if [[ ! "$latest" =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+            echo "Unexpected version from livecheck: '$latest'"
+            exit 1
+          fi
+
+          if [[ "$latest" == "$current" ]]; then
+            echo "No bump needed."
+            exit 0
+          fi
+
+          url="https://github.com/${repo}/releases/download/v${latest}/MiBuds.zip"
+          checksum="$(curl -fsSL "$url" | sha256sum | awk '{print $1}')"
+          perl -0pi -e "s/version \"[^\"]+\"/version \"$latest\"/; s/sha256 \"[^\"]+\"/sha256 \"$checksum\"/" "$cask"
+
+          if git diff --quiet -- "$cask"; then
+            echo "No cask changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$cask"
+          git commit -m "mibuds-for-mac ${latest}"
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push origin HEAD:main

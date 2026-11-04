@@ -49,12 +49,15 @@ brew uninstall <name>
 
 `.github/workflows/bump.yml` runs daily, uses `brew livecheck` to detect new upstream releases, updates the prebuilt archive checksums, and pushes the version bump directly to `main`.
 
-It requires a repo secret named `GH_PAT` with permission to push workflow-created commits.
+It pushes with the built-in `github.token` (the job has `permissions: contents: write`), so no repo secret is needed.
 
 ## Tap structure
 
 ```
 Formula/   # one .rb file per formula
+Casks/     # one .rb file per cask (prebuilt .app downloads)
 ```
 
-Casks would go in `Casks/` if added in future.
+The bump workflow also updates `Casks/mibuds-for-mac.rb` (version + sha256 of `MiBuds.zip`).
+A new cask needs its own step there; until then, bump it by hand (`curl -L <url> | shasum -a 256`)
+and check it with `brew style Casks/<name>.rb`.
