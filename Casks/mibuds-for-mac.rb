@@ -1,6 +1,6 @@
 cask "mibuds-for-mac" do
-  version "1.2.0"
-  sha256 "ed5190cc87b42cdc5e483ee66dfeec3ed8df82d597b778e05902e3897c7bb6ad"
+  version "1.2.1"
+  sha256 "3fcd9f98431466ae9880edbde5e1ce8f8febc3d9695b306949fb4c4de8e368fd"
 
   url "https://github.com/cytsai1008/MiBudsForMac/releases/download/v#{version}/MiBuds.zip"
   name "MiBuds for Mac"
